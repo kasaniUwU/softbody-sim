@@ -5,6 +5,10 @@ public class Vector2 {
         x=_x;
         y=_y;
     }
+    public Vector2(){
+        x=0.0;
+        y=0.0;
+    }
     public double getDist(){
         return Math.sqrt(x*x+y*y);
     }
