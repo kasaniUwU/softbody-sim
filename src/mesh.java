@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 public class mesh {
     List<Vector2> points=new ArrayList<>();
+    List<List<Integer>> faces=new ArrayList<>();
     public mesh(String fileString){
         try {
             File file = new File(fileString);
@@ -18,6 +19,19 @@ public class mesh {
                     temp=temp.substring(temp.indexOf(" ")+1);
                     double y= Double.parseDouble(temp.substring(temp.indexOf(" ")+1));
                     points.add(new Vector2(x*100,y*100));
+                }
+                if(data.substring(0,2).equals("f ")){
+                    String temp=data.substring(1);
+                    List<Integer> tempList=new ArrayList<>();
+                    while(temp.indexOf(" ")!=-1) {
+                        tempList.add(Integer.valueOf(temp.substring(temp.indexOf(" ")+1,temp.indexOf("/"))));
+                        temp=temp.substring(1);
+                        if(temp.indexOf(" ")!=-1) {
+                            temp = temp.substring(temp.indexOf(" "));
+                        }
+                    }
+                    tempList.add(Integer.valueOf(temp.substring(1,temp.indexOf("/"))));
+                    faces.add(tempList);
                 }
             }
             fileIn.close();

@@ -11,7 +11,12 @@ public class WorldObject {
     public void addComponent(String comp){
         Interpreter I = new Interpreter();
         try{
-            I.eval(comp+" temp =new "+comp+"();");
+            I.set( "comps", this);
+            try {
+                I.eval(comp + " temp =new " + comp + "(comps);");
+            } catch (EvalError e) {
+                I.eval(comp + " temp =new " + comp + "();");
+            }
             if(!(I.get("temp") instanceof component)){
                 System.out.println(comp+" is not a component");
                 return;
